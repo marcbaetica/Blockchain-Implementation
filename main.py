@@ -1,5 +1,6 @@
-import jsons  # TODO: custom serialize without 3rd party library,
+import json
 from BC.blockchain import Blockchain
+from BC.encoders import BlockchainEncoder
 from flask.app import Flask
 from pprintpp import pprint
 from utils.utils import generate_random_transactions
@@ -25,13 +26,9 @@ chain.blocks[5].previous_hash = 'aaa'
 print(f'Chain integrity is: {chain.verify_chain_integrity()}')
 
 
-print(jsons.dumps(chain))
-
-
 @webserver.get('/chain')
 def blockchain_structure():
-    # return json.dumps(chain.__dict__)
-    return jsons.dumps(chain)
+    return json.dumps(chain, cls=BlockchainEncoder)
 
 
 webserver.run()

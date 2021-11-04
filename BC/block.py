@@ -13,5 +13,5 @@ class Block:
         self.hash = self.generate_block_hash()
 
     def generate_block_hash(self):
-        block_data = json.dumps(self.__dict__, sort_keys=True)
+        block_data = json.dumps(self.__dict__, sort_keys=True)  # Sorting keys so hashing output is deterministic.
         return sha256(block_data.encode()).hexdigest()
