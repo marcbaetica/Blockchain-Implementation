@@ -1,6 +1,7 @@
 import json
 from BC.blockchain import Blockchain
 from BC.encoders import BlockchainEncoder
+from flask import Response
 from flask.app import Flask
 from pprintpp import pprint
 from utils.utils import generate_random_transactions
@@ -28,7 +29,7 @@ print(f'Chain integrity is: {chain.verify_chain_integrity()}')
 
 @webserver.get('/chain')
 def blockchain_structure():
-    return json.dumps(chain, cls=BlockchainEncoder)
+    return Response(json.dumps(chain, cls=BlockchainEncoder), mimetype='application/json')
 
 
 webserver.run()

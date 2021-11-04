@@ -49,10 +49,12 @@ class Blockchain:
 
     def process_new_transaction(self, transaction):
         self.create_new_block(transaction)
+        self.pending_transactions.remove(transaction)
 
     def mine(self):
         if not self.pending_transactions:
             print('No transactions pending at the moment.')
         # TODO: Add Proof of Work here for increased computational complexity.
-        for transaction in self.pending_transactions:
+        # .copy() because we remove items from the original list during iteration (read loop functionality)
+        for transaction in self.pending_transactions.copy():
             self.process_new_transaction(transaction)
